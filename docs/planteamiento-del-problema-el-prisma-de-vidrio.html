@@ -207,9 +207,10 @@ Publicado con <a style="display:inline;padding:0px;" href="https://pages.github.
 <p>En un experimento, se eligieron diferentes longitudes de onda <span class="math inline">\(\lambda\)</span> y se trazó el camino seguido por el rayo de luz que atraviesa el prisma, midiendo el ángulo de desviación para a partir del mismo calcular el índice de refracción <span class="math inline">\(n\)</span> del vidrio para el color seleccionado. Los datos obtenidos se recogen en el archivo <a href="https://drive.google.com/uc?export=download&amp;id=1fI5_KZA8MAiZVegFmtlQ7Cm4IzlGDQtg"><code>cauchy.csv</code></a>(click para descargar), que contiene las variables:</p>
 <ul>
 <li><p><code>lambda</code>: longitud de onda <span class="math inline">\(\lambda\)</span>, medida en <span class="math inline">\(nm\)</span>.</p></li>
-<li><p><code>iref</code>: índice de refracción <span class="math inline">\(n\)</span>.</p></li>
+<li><p><code>n</code>: índice de refracción.</p></li>
 </ul>
-<p>Descarga el fichero <code>cauchy.csv</code> y guárdalo en una carpeta de nombre <code>data</code> dentro de tu directorio de trabajo. Importamos los datos con <code>read_csv()</code> y los guardamos en un objeto de nombre <code>cauchy</code>:</p>
+<p>Descarga el fichero <code>cauchy.csv</code> y guárdalo en una carpeta de nombre <code>data</code> dentro de tu directorio de trabajo.</p>
+<p>Importamos los datos con <code>read_csv()</code> y los guardamos en un objeto de nombre <code>cauchy</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="planteamiento-del-problema-el-prisma-de-vidrio.html#cb2-1" aria-hidden="true" tabindex="-1"></a>cauchy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/cauchy.csv&quot;</span>)</span></code></pre></div>
 <p>Visualizamos los datos dibujando la nube de puntos <span class="math inline">\((\lambda, n)\)</span> con <code>geom_point()</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="planteamiento-del-problema-el-prisma-de-vidrio.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>

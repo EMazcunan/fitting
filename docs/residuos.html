@@ -204,7 +204,7 @@ Publicado con <a style="display:inline;padding:0px;" href="https://pages.github.
 <div id="residuos" class="section level2" number="2.6">
 <h2><span class="header-section-number">2.6</span> Residuos</h2>
 <p>Para obtener los residuos del ajuste usamos la función <code>residuals()</code>:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="residuos.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit_cauchy)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="residuos.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit_cauchy)</span></code></pre></div>
 <pre class="egitbook-output"><code>            1             2             3             4             5 
 -5.158258e-04  1.192086e-04 -9.157603e-05  8.724810e-04  9.998852e-05 
             6             7             8             9            10 
@@ -224,7 +224,7 @@ Publicado con <a style="display:inline;padding:0px;" href="https://pages.github.
            41 
 -2.796932e-04 </code></pre>
 <p>Para calcular el error cuadrático del ajuste (<span class="math inline">\(RSS\)</span>) usamos</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="residuos.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(fit_cauchy)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="residuos.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">residuals</span>(fit_cauchy)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre class="egitbook-output"><code>[1] 1.976785e-05</code></pre>
 <p>En el resumen del ajuste podemos leer</p>
 <div class="center">
@@ -234,9 +234,9 @@ Publicado con <a style="display:inline;padding:0px;" href="https://pages.github.
 <span class="math display">\[\sigma = \sqrt{RSS/38}\]</span>
 o equivalentemente
 <span class="math display">\[RSS=38\sigma^2.\]</span>
-El valor <span class="math inline">\(38\)</span>, se llama grados de libertad de los residuos y se obtiene de restar a las <span class="math inline">\(n=41\)</span> observaciones, los <span class="math inline">\(p=3\)</span> parámetros del modelo. Se obtiene con la función <code>df.residual()</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="residuos.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sigma</span>(fit_cauchy)</span>
-<span id="cb15-2"><a href="residuos.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">df.residual</span>(fit_cauchy)<span class="sc">*</span><span class="fu">sigma</span>(fit_cauchy)<span class="sc">^</span><span class="dv">2</span> <span class="co"># RSS</span></span></code></pre></div>
+El valor <span class="math inline">\(38\)</span>, se llama grados de libertad de los residuos y se obtiene de restar, a las <span class="math inline">\(n=41\)</span> observaciones, los <span class="math inline">\(p=3\)</span> parámetros del modelo. Se obtiene con la función <code>df.residual()</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="residuos.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sigma</span>(fit_cauchy)</span>
+<span id="cb17-2"><a href="residuos.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">df.residual</span>(fit_cauchy)<span class="sc">*</span><span class="fu">sigma</span>(fit_cauchy)<span class="sc">^</span><span class="dv">2</span> <span class="co"># RSS</span></span></code></pre></div>
 <pre class="egitbook-output"><code>[1] 0.0007212534
 [1] 1.976785e-05</code></pre>
 </div>

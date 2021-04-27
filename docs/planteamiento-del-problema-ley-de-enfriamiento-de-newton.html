@@ -212,14 +212,14 @@ donde <span class="math inline">\(k\)</span> es una constante que depende de la 
 <li><p><code>temp</code>: temperatura de la barra de hierro, en ºC.</p></li>
 </ul>
 <p>Como antes, descarga el fichero <code>newton.csv</code> y guárdalo en una carpeta de nombre <code>data</code> dentro de tu directorio de trabajo. Importamos los datos con <code>read_csv()</code> y los guardamos en un objeto de nombre <code>newton</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb20-1" aria-hidden="true" tabindex="-1"></a>newton <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/newton.csv&quot;</span>)</span></code></pre></div>
-<p>Visualizamos los datos dibujando la nube de puntos <span class="math inline">\((time, temp)\)</span> con <code>geom_point()</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb21-2"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> newton,</span>
-<span id="cb21-3"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> temp)</span>
-<span id="cb21-4"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb21-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
-<span id="cb21-5"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="Pr1-fitting_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb22-1" aria-hidden="true" tabindex="-1"></a>newton <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/newton.csv&quot;</span>)</span></code></pre></div>
+<p>Visualizamos los datos dibujando la nube de puntos <span class="math inline">\((t, T)\)</span> con <code>geom_point()</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb23-2"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> newton,</span>
+<span id="cb23-3"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> time, <span class="at">y =</span> temp)</span>
+<span id="cb23-4"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb23-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
+<span id="cb23-5"><a href="planteamiento-del-problema-ley-de-enfriamiento-de-newton.html#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="Pr1-fitting_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 
             </section>

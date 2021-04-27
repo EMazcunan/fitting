@@ -203,8 +203,8 @@ Publicado con <a style="display:inline;padding:0px;" href="https://pages.github.
 
 <div id="ajuste-con-lm" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Ajuste con <code>lm()</code></h2>
-<p>Tomaremos como modelo la fórmula de Cauchy para los índices de refracción en la región visible del espectro:
-<span class="math display">\[n = \beta_1 + \frac{\beta_2}{\lambda^2} + \frac{\beta_3}{\lambda^4}\]</span>
+<p>Tomaremos como modelo la fórmula de Cauchy para los índices de refracción <span class="math inline">\(n\)</span> en la región visible del espectro de longitud de onda <span class="math inline">\(\lambda\)</span>:
+<span class="math display">\[n(\lambda) = \beta_1 + \frac{\beta_2}{\lambda^2} + \frac{\beta_3}{\lambda^4}\]</span>
 donde <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\beta_3\)</span> son los parámetros a ajustar.</p>
 <p>Como se indicó antes, la función de <span class="textsf">R</span> para ajustar modelos lineales es <code>lm()</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ajuste-con-lm.html#cb4-1" aria-hidden="true" tabindex="-1"></a>fit_cauchy <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
@@ -213,19 +213,19 @@ donde <span class="math inline">\(\beta_1\)</span>, <span class="math inline">\(
 <span id="cb4-4"><a href="ajuste-con-lm.html#cb4-4" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p>En el código anterior, se utiliza la función <code>lm()</code> para ajustar el modelo propuesto a las observaciones de nuestra hoja de datos.
 Hemos usado los argumentos <code>data</code>, para especificar la hoja de datos con las observaciones, y <code>formula</code>, para indicar la fórmula del modelo (enseguida explicaremos cómo construir esta fórmula).</p>
-<p>El resultado se almacena en un objeto de nombre <code>fit_cauchy</code>.
-Si imprimimos el objeto <code>fit_cauchy</code> veremos los coeficientes del ajuste. Pero la instrucción <code>summary(fit_cauchy)</code> revela que el objeto contiene mucha más información de la que muestra su simple impresión:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ajuste-con-lm.html#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_cauchy</span>
-<span id="cb5-2"><a href="ajuste-con-lm.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_cauchy)</span></code></pre></div>
+<p>El resultado se almacena en un objeto de nombre <code>fit_cauchy</code>.</p>
+<p>Si imprimimos el objeto <code>fit_cauchy</code> veremos los coeficientes del ajuste:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ajuste-con-lm.html#cb5-1" aria-hidden="true" tabindex="-1"></a>fit_cauchy</span></code></pre></div>
 <pre class="egitbook-output"><code>
 Call:
 lm(formula = n ~ I(1/lambda^2) + I(1/lambda^4), data = cauchy)
 
 Coefficients:
   (Intercept)  I(1/lambda^2)  I(1/lambda^4)  
-          1.5         4908.3      7078041.7  
-
-
+          1.5         4908.3      7078041.7  </code></pre>
+<p>Pero la instrucción <code>summary(fit_cauchy)</code> revela que el objeto contiene mucha más información de la que muestra su simple impresión:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ajuste-con-lm.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_cauchy)</span></code></pre></div>
+<pre class="egitbook-output"><code>
 Call:
 lm(formula = n ~ I(1/lambda^2) + I(1/lambda^4), data = cauchy)
 

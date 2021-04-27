@@ -126,10 +126,12 @@ En un experimento, se eligieron diferentes longitudes de onda \(\lambda\) y se t
 \item
   \texttt{lambda}: longitud de onda \(\lambda\), medida en \(nm\).
 \item
-  \texttt{iref}: índice de refracción \(n\).
+  \texttt{n}: índice de refracción.
 \end{itemize}
 
-Descarga el fichero \texttt{cauchy.csv} y guárdalo en una carpeta de nombre \texttt{data} dentro de tu directorio de trabajo. Importamos los datos con \texttt{read\_csv()} y los guardamos en un objeto de nombre \texttt{cauchy}:
+Descarga el fichero \texttt{cauchy.csv} y guárdalo en una carpeta de nombre \texttt{data} dentro de tu directorio de trabajo.
+
+Importamos los datos con \texttt{read\_csv()} y los guardamos en un objeto de nombre \texttt{cauchy}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -154,8 +156,8 @@ Visualizamos los datos dibujando la nube de puntos \((\lambda, n)\) con \texttt{
 \hypertarget{ajuste-con-lm}{%
 \subsection{\texorpdfstring{Ajuste con \texttt{lm()}}{Ajuste con lm()}}\label{ajuste-con-lm}}
 
-Tomaremos como modelo la fórmula de Cauchy para los índices de refracción en la región visible del espectro:
-\[n = \beta_1 + \frac{\beta_2}{\lambda^2} + \frac{\beta_3}{\lambda^4}\]
+Tomaremos como modelo la fórmula de Cauchy para los índices de refracción \(n\) en la región visible del espectro de longitud de onda \(\lambda\):
+\[n(\lambda) = \beta_1 + \frac{\beta_2}{\lambda^2} + \frac{\beta_3}{\lambda^4}\]
 donde \(\beta_1\), \(\beta_2\) y \(\beta_3\) son los parámetros a ajustar.
 
 Como se indicó antes, la función de \textsf{R} para ajustar modelos lineales es \texttt{lm()}.
@@ -173,12 +175,12 @@ En el código anterior, se utiliza la función \texttt{lm()} para ajustar el mod
 Hemos usado los argumentos \texttt{data}, para especificar la hoja de datos con las observaciones, y \texttt{formula}, para indicar la fórmula del modelo (enseguida explicaremos cómo construir esta fórmula).
 
 El resultado se almacena en un objeto de nombre \texttt{fit\_cauchy}.
-Si imprimimos el objeto \texttt{fit\_cauchy} veremos los coeficientes del ajuste. Pero la instrucción \texttt{summary(fit\_cauchy)} revela que el objeto contiene mucha más información de la que muestra su simple impresión:
+
+Si imprimimos el objeto \texttt{fit\_cauchy} veremos los coeficientes del ajuste:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fit\_cauchy}
-\FunctionTok{summary}\NormalTok{(fit\_cauchy)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -189,8 +191,18 @@ Si imprimimos el objeto \texttt{fit\_cauchy} veremos los coeficientes del ajuste
 ## 
 ## Coefficients:
 ##   (Intercept)  I(1/lambda^2)  I(1/lambda^4)  
-##           1.5         4908.3      7078041.7  
-## 
+##           1.5         4908.3      7078041.7
+\end{verbatim}
+
+Pero la instrucción \texttt{summary(fit\_cauchy)} revela que el objeto contiene mucha más información de la que muestra su simple impresión:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(fit\_cauchy)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
 ## 
 ## Call:
 ## lm(formula = n ~ I(1/lambda^2) + I(1/lambda^4), data = cauchy)
@@ -267,9 +279,12 @@ Para obtener los coeficientes del ajuste usamos las función \texttt{coefficient
 \end{verbatim}
 
 La salida nos informa de que los coeficientes que solucionan el problema de mínimos cuadrados (ecuaciones normales de Gauss) son:
-\[\beta_1 = 1.50031, \beta_2 = 4908.268, \beta_3=7078042.\]
+\[\hat{\beta_1} = 1.50031,\]
+\[\hat{\beta_2} = 4908.268,\]
+y
+\[\hat{\beta_3} = 7078042.\]
 
-\textbf{Nota:} Dependiendo de la configuración, los valores de la salida pueden aparecer en notación científica, simbolizando \texttt{e+00}, \texttt{e+03} y \texttt{e+06} que hay que multiplicar por \(10^0=1\), \(10^3=1000\) y \(10^6\) respectivamente.
+\textbf{Nota:} Dependiendo de la configuración, los valores de la salida pueden aparecer en notación científica, simbolizando \texttt{e+00}, \texttt{e+03} y \texttt{e+06} que hay que multiplicar por \(10^0=1\), \(10^3=1000\) y \(10^6=1000000\) respectivamente.
 
 Por tanto el ajuste buscado es
 \[n = 1.50031 + \frac{4908.268}{\lambda^2} + \frac{7078042}{\lambda^4}.\]
@@ -352,7 +367,7 @@ El error estandard residual, que suele denotarse \(\sigma\), se obtiene con la f
 \[\sigma = \sqrt{RSS/38}\]
 o equivalentemente
 \[RSS=38\sigma^2.\]
-El valor \(38\), se llama grados de libertad de los residuos y se obtiene de restar a las \(n=41\) observaciones, los \(p=3\) parámetros del modelo. Se obtiene con la función \texttt{df.residual()}.
+El valor \(38\), se llama grados de libertad de los residuos y se obtiene de restar, a las \(n=41\) observaciones, los \(p=3\) parámetros del modelo. Se obtiene con la función \texttt{df.residual()}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -405,7 +420,7 @@ Queremos calcular los índices de refracción que predice nuestro ajuste para lo
 ## 1.512335 1.514517 1.519360 1.521217 1.526568
 \end{verbatim}
 
-En la función \texttt{predict()} indicamos como primer argumento nuestro ajuste \texttt{fit\_cauchy} y como segundo argumento una hoja de datos, que hemos llamado \texttt{new\_lambda} con los nuevos valores para la variable independiente \texttt{lambda}. Hemos construido dicha hoja de datos con la función \texttt{tibble()} (\emph{tidy table}).
+En la función \texttt{predict()} indicamos como primer argumento nuestro ajuste \texttt{fit\_cauchy} y como segundo argumento una hoja de datos, que hemos llamado \texttt{new\_lambda}, con los nuevos valores para la variable independiente \texttt{lambda}. Hemos construido dicha hoja de datos con la función \texttt{tibble()} (\emph{tidy table}).
 
 \hypertarget{gruxe1fico-del-ajuste}{%
 \subsection{Gráfico del ajuste}\label{gruxe1fico-del-ajuste}}
@@ -427,23 +442,25 @@ Al comienzo del problema representamos la nube de puntos de nuestras observacion
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 En los argumentos de \texttt{geom\_smooth()} hemos escrito \texttt{method\ =\ "lm"} para indicar que el ajuste se realiza con la función \texttt{lm()}.
 
 Notar que al especificar la fórmula del modelo en el argumento \texttt{formula} no se utilizan los nombres \texttt{lambda} y \texttt{n} de las variables (como se hizo en la función \texttt{lm()}) sino los nombres \texttt{x} e \texttt{y} de las estéticas asociadas.
+
+El argumento \texttt{se\ =\ FALSE} inhibe representar los intervalos de confianza (que estudiaremos en el segundo bloque del curso).
 
 \hypertarget{nls}{%
 \section{Modelos no lineales}\label{nls}}
 
 Modelos como
 \[y = \beta_1 e^{\beta_2 x}\]
-(modelo exponencial) o
-\[y = \beta_1x^\beta_2\]
+(modelo exponencial) o como
+\[y = \beta_1x^{\beta_2}\]
 (modelo potencial) no tienen una estructura lineal.
 
 Para modelos lineales, el problema de encontrar los valores de los parámetros que minimizan el error cuadrático del ajuste se traduce en resolver el sistema de ecuaciones normales de Gauss, que es un sistema lineal.\\
-En el caso de modelos no lineales como los anteriores, la situación se complica porque ahora la solución viene dada por un sistema de ecuaciones no lineal.
+Pero en el caso de modelos no lineales como los anteriores, la situación se complica porque ahora la solución viene dada por un sistema de ecuaciones no lineal.
 
 En este capítulo veremos cómo ajustar este tipo de modelos a una colección de observaciones, usando la función \texttt{nls()} (\textbf{n}onlinea \textbf{l}east \textbf{s}quares) de \textsf{R}.
 
@@ -471,7 +488,7 @@ Como antes, descarga el fichero \texttt{newton.csv} y guárdalo en una carpeta d
 \end{Highlighting}
 \end{Shaded}
 
-Visualizamos los datos dibujando la nube de puntos \((time, temp)\) con \texttt{geom\_point()}:
+Visualizamos los datos dibujando la nube de puntos \((t, T)\) con \texttt{geom\_point()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -483,7 +500,7 @@ Visualizamos los datos dibujando la nube de puntos \((time, temp)\) con \texttt{
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 \hypertarget{ajuste-con-nls}{%
 \subsection{\texorpdfstring{Ajuste con \texttt{nls()}}{Ajuste con nls()}}\label{ajuste-con-nls}}
@@ -498,9 +515,9 @@ Antes de utilizar la función \texttt{nls()} necesitamos crear una función para
 \end{Highlighting}
 \end{Shaded}
 
-También necesitamos proporcionan unos valores iniciales para los parámetros. Estos valores iniciales ayudarán en el proceso de optimización del error cuadrático (que pasa por resolver un sistema no lineal). A la vista de los datos tomaremos \(20\) como valor inicial para \(T_a\) y \(100\) como valor inicial para \(T_0\). Para el valor inicial de \(k\), tomamos \(0.05\).
+También necesitamos proporcionar unos valores iniciales para los parámetros. Estos valores iniciales ayudarán en el proceso de optimización del error cuadrático (que pasa por resolver un sistema no lineal). A la vista de los datos tomaremos \(20\) como valor inicial para \(T_a\) y \(100\) como valor inicial para \(T_0\). Para el valor inicial de \(k\), tomamos \(0.05\). (En la tarea de evaluación se propondrán los valores iniciales para los correspondientes parámetros).
 
-Con los elementos anteriores, ya podemos utilizar la función \texttt{nls()}. Utilizaremos la función \(T_model\) para el valor del argumento \texttt{formula}, e indicaremos los valores iniciales de los parámetros en el argumento \texttt{start}, en forma de lista con la función \texttt{list()}:
+Con los elementos anteriores, ya podemos utilizar la función \texttt{nls()}. Utilizaremos la función \texttt{T\_model} que acabamos de definir para el valor del argumento \texttt{formula}, e indicaremos los valores iniciales de los parámetros en el argumento \texttt{start}, en forma de lista con la función \texttt{list()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -529,7 +546,10 @@ Los coeficientes del ajuste son:
 \end{verbatim}
 
 Redondeando los resultados a dos decimales, las estimaciones obtenidas son
-\[\hat{T_a} = 19.03, \hat{T_0}=104.98, \hat{k}=0.06,\]
+\[\hat{T_a} = 19.03,\]
+\[\hat{T_0}=104.98,\]
+y
+\[\hat{k}=0.06,\]
 y el ajuste quedaría:
 
 \[T(t) = 19.03 + (104.98-19.03)e^{-0.06t}.\]
@@ -575,15 +595,15 @@ Como en el capítulo anterior usamos la función \texttt{geom\_smooth()} para re
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-27-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Pr1-fitting_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 En los argumentos de \texttt{geom\_smooth()} hemos escrito ahora \texttt{method\ =\ "nls"} para indicar que el ajuste se realiza con la función \texttt{nls()}.
 
-El argumento \texttt{start} que precisa la función \texttt{nls()} se especifica en \texttt{method.args\ =\ list(...)}.
+El argumento \texttt{start} que requiere la función \texttt{nls()} se especifica en \texttt{method.args\ =\ list(...)}.
 
 Notar que hemos usado nuestra función \texttt{T\_model()} para especificar la fórmula del modelo, como al usar la función \texttt{nls()}, pero que en este caso no se utilizan los nombres \texttt{time} y \texttt{temp} de las variables sino los nombres \texttt{x} e \texttt{y} de las correspondientes estéticas.
 
-El argumento \texttt{se\ =\ FALSE} es necesario (si no lo incluyes obtendrás un error) y responde a una cuestión técnica que no vamos a detallar.
+El argumento \texttt{se\ =\ FALSE} es necesario en este caso (si no lo incluyes obtendrás un error) por una cuestión técnica que no vamos a detallar.
 
 % After Body
 
