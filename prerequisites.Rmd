@@ -1,0 +1,13 @@
+# Requisitos previos
+
+Antes de comenzar esta práctica, necesitas:
+
+* Tener `r R()` y `r RStudio()` instalados en tu equipo. Ver [Instalación de R y RStudio](https://emazcunan.github.io/install-r-rstudio/){target="_blank"}
+
+* Haber estudiado la práctica [Primeros pasos con R y RStudio](https://emazcunan.github.io/basics-r-rstudio/){target="_blank"}
+
+
+Para utilizar las funciones que aparecerán a lo largo de la prácticam empezamos cargando el paquete tidyverse:
+```{r}
+library("tidyverse")
+```
